@@ -1,0 +1,173 @@
+:root {
+    --primary-color: #CE2829;
+    --secondary-color: #FFB800;
+    --text-color: #333;
+    --background-color: #fff;
+    --content-width: 40rem;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem 0;
+    width: 100%;
+  }
+  
+  .header-content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    background-color: var(--primary-color);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-subtitle {
+    opacity: 0.8;
+  }
+  
+  .main-content {
+    max-width: var(--content-width);
+    margin: 2rem auto;
+    background-color: var(--background-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .label {
+    font-weight: 500;
+  }
+  
+  .input, .textarea, .select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .quantity-button {
+    background-color: var(--secondary-color);
+    color: black;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .quantity-display {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .order-summary {
+    background-color: #f8f8f8;
+    padding: 1rem;
+    border-radius: 0.25rem;
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  
+  .submit-button {
+    width: 100%;
+    background-color: var(--secondary-color);
+    color: black;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .submit-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .header-logo {
+    height: 70px;
+    width: auto;
+    margin-bottom: 18px;
+  }
+  
+  .header-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .header-subtitle {
+    font-size: 14px;
+    color: white;
+    margin: 0;
+    align-self: flex-start;
+  }
+  
+  
