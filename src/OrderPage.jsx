@@ -2,6 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import './OrderPage.css'
 import logo from '../images/iteration-1-images/logo.svg'
+import { Link, useNavigate } from 'react-router-dom'
 
 const malzemeler = [
   { id: 'pepperoni', label: 'Pepperoni' },
@@ -13,10 +14,13 @@ const malzemeler = [
   { id: 'sogan', label: 'Soğan' },
   { id: 'misir', label: 'Mısır' },
   { id: 'jalapeno', label: 'Jalapeno' },
-  { id: 'domates', label: 'Domates' }
+  { id: 'domates', label: 'Domates' },
+  { id: 'zeytin', label: 'Zeytin' },
+  { id: 'tavuk', label: 'Tavuk' }
 ]
 
 export default function OrderPage() {
+  const navigate = useNavigate()
   const [order, setOrder] = useState({
     kisisel: {
       isim: '',
@@ -69,7 +73,7 @@ export default function OrderPage() {
           <div className="header-logo-container">
             <img src={logo} alt="Teknolojik Yemekler Logo" className="header-logo" />
             <p className="header-subtitle">
-              Anasayfa - <strong>Sipariş</strong>
+              <Link to="/" className="header-link">Anasayfa</Link> - <strong>Sipariş</strong>
             </p>
           </div>
         </div>

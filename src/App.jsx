@@ -1,17 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import workintech from '/workintech.svg'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import MainPage from './MainPage'
+import OrderPage from './OrderPage'
 import './App.css'
-import { Button } from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import OrderPage from "./OrderPage"
-
 
 function App() {
   return (
-    <div>
-      <OrderPage />
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/siparis" element={<OrderPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   )
 }
 
