@@ -60,8 +60,10 @@ export default function OrderPage() {
     try {
       const response = await axios.post('https://reqres.in/api/pizza', order)
       console.log('Sipariş Özeti:', response.data)
+      navigate('/success')
     } catch (error) {
       console.error('Sipariş hatası:', error)
+      navigate('/error')
     }
     setIsSubmitting(false)
   }
