@@ -46,7 +46,7 @@ export default function OrderPage() {
   const isValid = 
     order.kisisel.isim.length >= 3 &&
     order.kisisel.soyisim.length >= 3 &&
-    order.kisisel.adres.length > 0 &&
+    order.kisisel.adres.length >= 15 &&
     order.pizza.boyut && 
     order.pizza.hamur && 
     order.pizza.malzemeler.length >= 4 && 
@@ -214,6 +214,7 @@ export default function OrderPage() {
                 }))}
                 placeholder="Adresinizi giriniz"
                 rows={3}
+                minLength={15}
                 required
               />
             </div>
