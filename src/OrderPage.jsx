@@ -128,8 +128,9 @@ export default function OrderPage() {
                       hamur: e.target.value
                     }
                   }))}
+                  required
                 >
-                  <option value="">Hamur Kalınlığı</option>
+                  <option value="" disabled>Hamur Kalınlığı</option>
                   <option value="ince">İnce</option>
                   <option value="orta">Orta</option>
                   <option value="kalin">Kalın</option>
@@ -165,7 +166,7 @@ export default function OrderPage() {
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="firstName" className="label">İsim</label>
+                <label htmlFor="firstName" className="label">Ad</label>
                 <input
                   id="firstName"
                   className="input"
@@ -182,7 +183,7 @@ export default function OrderPage() {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="lastName" className="label">Soy İsim</label>
+                <label htmlFor="lastName" className="label">Soyad</label>
                 <input
                   id="lastName"
                   className="input"
