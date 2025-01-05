@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;700&display=swap');
 
 .pizza-grid {
   display: grid;
@@ -239,7 +240,7 @@
 .special-menu.red h2 {
   font-size: 3rem;
   margin: 0;
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Quattrocento', serif;
 }
 
 .special-menu.red p {
@@ -408,6 +409,9 @@
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .menu-item:hover {
@@ -436,6 +440,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .rating {
@@ -455,6 +460,24 @@
 .price {
   font-weight: bold;
   font-size: 1.25rem;
+}
+
+.menu-details .order-button {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: transform 0.2s;
+  border: 2px solid var(--secondary-color);
+}
+
+.menu-details .order-button:hover {
+  background-color: var(--secondary-color);
 }
 
 @media (max-width: 1200px) {

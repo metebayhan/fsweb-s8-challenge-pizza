@@ -48,7 +48,7 @@ function MainPage() {
           <div className="special-menu red">
             <div className="special-content">
               <h2>Özel Lezzetus</h2>
-              <p>Position:Absolute Acı Burger</p>
+              <p>Position: Absolute Acı Pizza</p>
               <Link to="/siparis" className="special-button">SİPARİŞ VER</Link>
             </div>
           </div>
@@ -103,7 +103,7 @@ function MainPage() {
         </div>
 
         <div className="menu-grid">
-          <div className="menu-item">
+          <Link to="/siparis" className="menu-item">
             <img src="/images/iteration-2-images/pictures/food-1.png" alt="Terminal Pizza" />
             <div className="menu-details">
               <h3>Terminal Pizza</h3>
@@ -115,9 +115,9 @@ function MainPage() {
                 <div className="price">60₺</div>
               </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="menu-item">
+          <Link to="/siparis" className="menu-item">
             <img src="/images/iteration-2-images/pictures/food-2.png" alt="Position Absolute Acı Pizza" />
             <div className="menu-details">
               <h3>Position Absolute Acı Pizza</h3>
@@ -129,9 +129,9 @@ function MainPage() {
                 <div className="price">60₺</div>
               </div>
             </div>
-          </div>
+          </Link>
 
-          <div className="menu-item">
+          <Link to="/siparis" className="menu-item">
             <img src="/images/iteration-2-images/pictures/food-3.png" alt="useEffect Tavuklu Burger" />
             <div className="menu-details">
               <h3>useEffect Tavuklu Burger</h3>
@@ -143,7 +143,7 @@ function MainPage() {
                 <div className="price">60₺</div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
 
