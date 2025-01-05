@@ -54,7 +54,8 @@ export default function OrderPage() {
   })
 
   const basePrice = 85.50
-  const extraPrice = 25.00
+  const malzemeFiyat = 5.00
+  const extraPrice = order.pizza.malzemeler.length * malzemeFiyat
   const total = (basePrice + extraPrice) * order.siparis.adet
 
   const isValid = 
@@ -335,10 +336,18 @@ export default function OrderPage() {
               </div>
               <div className="order-summary">
                 <div className="summary-row">
-                  <span>Seçimler</span>
+                  <span>Pizza</span>
+                  <span>{basePrice.toFixed(2)}₺</span>
+                </div>
+                <div className="summary-row">
+                  <span>Ek Malzemeler ({order.pizza.malzemeler.length} adet)</span>
                   <span>{extraPrice.toFixed(2)}₺</span>
                 </div>
                 <div className="summary-row">
+                  <span>Adet</span>
+                  <span>x{order.siparis.adet}</span>
+                </div>
+                <div className="summary-row total">
                   <span>Toplam</span>
                   <span>{total.toFixed(2)}₺</span>
                 </div>

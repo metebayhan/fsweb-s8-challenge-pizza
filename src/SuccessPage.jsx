@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../images/iteration-1-images/logo.svg'
+import Footer from './components/Footer'
 import './SuccessPage.css'
 
 export default function SuccessPage() {
@@ -23,7 +24,8 @@ export default function SuccessPage() {
   }
 
   const basePrice = 85.50
-  const extraPrice = 25.00
+  const malzemeFiyat = 5.00
+  const extraPrice = order.pizza.malzemeler.length * malzemeFiyat
   const total = (basePrice + extraPrice) * order.siparis.adet
 
   return (
@@ -75,8 +77,16 @@ export default function SuccessPage() {
           <div className="summary-section">
             <h4 className="summary-title">Sipariş Toplamı</h4>
             <div className="summary-row">
-              <span>Seçimler</span>
+              <span>Pizza</span>
+              <span>{basePrice.toFixed(2)}₺</span>
+            </div>
+            <div className="summary-row">
+              <span>Ek Malzemeler ({order.pizza.malzemeler.length} adet)</span>
               <span>{extraPrice.toFixed(2)}₺</span>
+            </div>
+            <div className="summary-row">
+              <span>Adet</span>
+              <span>x{order.siparis.adet}</span>
             </div>
             <div className="summary-row total">
               <span>Toplam</span>
@@ -85,6 +95,7 @@ export default function SuccessPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   )
 }
