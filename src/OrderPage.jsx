@@ -19,6 +19,18 @@ const malzemeler = [
   { id: 'Tavuk', label: 'Tavuk' }
 ]
 
+const pizzaBoyutlari = [
+  { id: 'Küçük', label: 'Küçük' },
+  { id: 'Orta', label: 'Orta' },
+  { id: 'Büyük', label: 'Büyük' }
+]
+
+const hamurKalinliklari = [
+  { id: 'İnce', label: 'İnce' },
+  { id: 'Orta', label: 'Orta' },
+  { id: 'Kalın', label: 'Kalın' }
+]
+
 export default function OrderPage() {
   const navigate = useNavigate()
   const [order, setOrder] = useState({
@@ -36,6 +48,7 @@ export default function OrderPage() {
     siparis: {
       adet: 1,
       notlar: '',
+      hizliTeslimat: false,
     }
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -55,8 +68,9 @@ export default function OrderPage() {
 
   const basePrice = 85.50
   const malzemeFiyat = 5.00
+  const hizliTeslimatFiyat = 50.00
   const extraPrice = order.pizza.malzemeler.length * malzemeFiyat
-  const total = (basePrice + extraPrice) * order.siparis.adet
+  const total = (basePrice + extraPrice + (order.siparis.hizliTeslimat ? hizliTeslimatFiyat : 0)) * order.siparis.adet
 
   const isValid = 
     order.kisisel.isim.length >= 3 &&
@@ -89,21 +103,21 @@ export default function OrderPage() {
   }
 
   const handleFieldChange = (section, field, value) => {
-    setOrder(prev => ({
-      ...prev,
+    setOrder({
+      ...order,
       [section]: {
-        ...prev[section],
+        ...order[section],
         [field]: value
       }
-    }))
+    })
 
-    setErrors(prev => ({
-      ...prev,
+    setErrors({
+      ...errors,
       [section]: {
-        ...prev[section],
+        ...errors[section],
         [field]: validateField(field, value)
       }
-    }))
+    })
   }
 
   const handleMalzemeChange = (malzemeId, checked) => {
@@ -111,25 +125,43 @@ export default function OrderPage() {
       ? [...order.pizza.malzemeler, malzemeId]
       : order.pizza.malzemeler.filter(t => t !== malzemeId)
 
-    setOrder(prev => ({
-      ...prev,
+    setOrder({
+      ...order,
       pizza: {
-        ...prev.pizza,
+        ...order.pizza,
         malzemeler: yeniMalzemeler
       }
-    }))
+    })
 
-    setErrors(prev => ({
-      ...prev,
+    setErrors({
+      ...errors,
       pizza: {
-        ...prev.pizza,
+        ...errors.pizza,
         malzemeler: validateField('malzemeler', yeniMalzemeler)
       }
-    }))
+    })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // Form gönderildiğinde tüm alanları kontrol et
+    const newErrors = {
+      kisisel: {
+        isim: validateField('isim', order.kisisel.isim),
+        soyisim: validateField('soyisim', order.kisisel.soyisim),
+        telefon: validateField('telefon', order.kisisel.telefon),
+        adres: validateField('adres', order.kisisel.adres),
+      },
+      pizza: {
+        boyut: validateField('boyut', order.pizza.boyut),
+        hamur: validateField('hamur', order.pizza.hamur),
+        malzemeler: validateField('malzemeler', order.pizza.malzemeler),
+      }
+    }
+
+    setErrors(newErrors)
+
     if (!isValid) return
 
     setIsSubmitting(true)
@@ -146,6 +178,46 @@ export default function OrderPage() {
       .finally(() => {
         setIsSubmitting(false)
       })
+  }
+
+  const handleDecrease = () => {
+    setOrder({
+      ...order,
+      siparis: {
+        ...order.siparis,
+        adet: Math.max(1, order.siparis.adet - 1)
+      }
+    })
+  }
+
+  const handleIncrease = () => {
+    setOrder({
+      ...order,
+      siparis: {
+        ...order.siparis,
+        adet: order.siparis.adet + 1
+      }
+    })
+  }
+
+  const handleNotesChange = (e) => {
+    setOrder({
+      ...order,
+      siparis: {
+        ...order.siparis,
+        notlar: e.target.value
+      }
+    })
+  }
+
+  const handleHizliTeslimatChange = (e) => {
+    setOrder({
+      ...order,
+      siparis: {
+        ...order.siparis,
+        hizliTeslimat: e.target.checked
+      }
+    })
   }
 
   return (
@@ -183,35 +255,41 @@ export default function OrderPage() {
           <form onSubmit={handleSubmit} className="form">
             <div className="form-row">
               <div className="form-group">
-                <label className="label">Boyut Seç</label>
+                <label className="label">Boyut Seç <span className="required">*</span></label>
                 <div className="radio-group">
-                  {['Küçük', 'Orta', 'Büyük'].map((size) => (
-                    <div key={size} className="radio-item">
+                  {pizzaBoyutlari.map((boyut) => (
+                    <div 
+                      key={boyut.id} 
+                      className="radio-item"
+                      onClick={() => handleFieldChange('pizza', 'boyut', boyut.id)}
+                    >
                       <input
                         type="radio"
-                        id={size}
+                        id={boyut.id}
                         name="size"
-                        value={size}
-                        checked={order.pizza.boyut === size}
+                        value={boyut.id}
+                        checked={order.pizza.boyut === boyut.id}
                         onChange={(e) => handleFieldChange('pizza', 'boyut', e.target.value)}
                       />
-                      <label htmlFor={size}>{size}</label>
+                      <label htmlFor={boyut.id}>{boyut.label}</label>
                     </div>
                   ))}
                 </div>
                 {errors.pizza.boyut && <span className="error-message">{errors.pizza.boyut}</span>}
               </div>
               <div className="form-group">
-                <label className="label">Hamur Seç</label>
+                <label className="label">Hamur Seç <span className="required">*</span></label>
                 <select 
                   className="select"
                   value={order.pizza.hamur}
                   onChange={(e) => handleFieldChange('pizza', 'hamur', e.target.value)}
                 >
                   <option value="" disabled>Hamur Kalınlığı</option>
-                  <option value="İnce">İnce</option>
-                  <option value="Orta">Orta</option>
-                  <option value="Kalın">Kalın</option>
+                  {hamurKalinliklari.map((hamur) => (
+                    <option key={hamur.id} value={hamur.id}>
+                      {hamur.label}
+                    </option>
+                  ))}
                 </select>
                 {errors.pizza.hamur && <span className="error-message">{errors.pizza.hamur}</span>}
               </div>
@@ -293,15 +371,21 @@ export default function OrderPage() {
                 id="notes"
                 className="textarea"
                 value={order.siparis.notlar}
-                onChange={(e) => setOrder(prev => ({
-                  ...prev,
-                  siparis: {
-                    ...prev.siparis,
-                    notlar: e.target.value
-                  }
-                }))}
+                onChange={handleNotesChange}
                 placeholder="Siparişiniz eklemek istediğiniz bir not var mı?"
               />
+            </div>
+
+            <div className="form-group">
+              <div className="checkbox-item">
+                <input
+                  type="checkbox"
+                  id="hizliTeslimat"
+                  checked={order.siparis.hizliTeslimat}
+                  onChange={handleHizliTeslimatChange}
+                />
+                <label htmlFor="hizliTeslimat">Hızlı Teslimat (+50₺)</label>
+              </div>
             </div>
 
             <div className="form-row">
@@ -309,13 +393,7 @@ export default function OrderPage() {
                 <button
                   type="button"
                   className="quantity-button"
-                  onClick={() => setOrder(prev => ({
-                    ...prev,
-                    siparis: {
-                      ...prev.siparis,
-                      adet: Math.max(1, prev.siparis.adet - 1)
-                    }
-                  }))}
+                  onClick={handleDecrease}
                 >
                   -
                 </button>
@@ -323,13 +401,7 @@ export default function OrderPage() {
                 <button
                   type="button"
                   className="quantity-button"
-                  onClick={() => setOrder(prev => ({
-                    ...prev,
-                    siparis: {
-                      ...prev.siparis,
-                      adet: prev.siparis.adet + 1
-                    }
-                  }))}
+                  onClick={handleIncrease}
                 >
                   +
                 </button>
@@ -343,6 +415,12 @@ export default function OrderPage() {
                   <span>Ek Malzemeler ({order.pizza.malzemeler.length} adet)</span>
                   <span>{extraPrice.toFixed(2)}₺</span>
                 </div>
+                {order.siparis.hizliTeslimat && (
+                  <div className="summary-row">
+                    <span>Hızlı Teslimat</span>
+                    <span>{hizliTeslimatFiyat.toFixed(2)}₺</span>
+                  </div>
+                )}
                 <div className="summary-row">
                   <span>Adet</span>
                   <span>x{order.siparis.adet}</span>

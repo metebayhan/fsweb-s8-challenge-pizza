@@ -25,8 +25,9 @@ export default function SuccessPage() {
 
   const basePrice = 85.50
   const malzemeFiyat = 5.00
+  const hizliTeslimatFiyat = 50.00
   const extraPrice = order.pizza.malzemeler.length * malzemeFiyat
-  const total = (basePrice + extraPrice) * order.siparis.adet
+  const total = (basePrice + extraPrice + (order.siparis.hizliTeslimat ? hizliTeslimatFiyat : 0)) * order.siparis.adet
 
   return (
     <div className="success-page">
@@ -73,6 +74,12 @@ export default function SuccessPage() {
                 <span className="info-value">{order.siparis.notlar}</span>
               </div>
             )}
+            {order.siparis.hizliTeslimat && (
+              <div className="info-row">
+                <span className="info-label">Teslimat:</span>
+                <span className="info-value">Hızlı Teslimat</span>
+              </div>
+            )}
           </div>
           <div className="summary-section">
             <h4 className="summary-title">Sipariş Toplamı</h4>
@@ -84,6 +91,12 @@ export default function SuccessPage() {
               <span>Ek Malzemeler ({order.pizza.malzemeler.length} adet)</span>
               <span>{extraPrice.toFixed(2)}₺</span>
             </div>
+            {order.siparis.hizliTeslimat && (
+              <div className="summary-row">
+                <span>Hızlı Teslimat</span>
+                <span>{hizliTeslimatFiyat.toFixed(2)}₺</span>
+              </div>
+            )}
             <div className="summary-row">
               <span>Adet</span>
               <span>x{order.siparis.adet}</span>

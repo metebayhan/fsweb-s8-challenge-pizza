@@ -221,12 +221,11 @@
   .radio-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
     background-color: #FAF7F2;
-    padding: 0.75rem 1.5rem;
-    border-radius: 2rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s;
   }
   
   .radio-item:hover {
@@ -529,6 +528,11 @@
     border: 1px solid var(--primary-color);
     border-radius: 0.5rem;
     padding: 0.5rem;
+  }
+  
+  .required {
+    color: #CE2829;
+    margin-left: 4px;
   }
   
   
